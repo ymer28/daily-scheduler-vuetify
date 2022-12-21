@@ -1,44 +1,38 @@
 <template>
-  <v-app>
-    <v-app-bar
-      app
-      color="primary"
-      dark
-    >
-      <div class="center">
-        <h1> {{ pageTitle }} </h1>
-      </div>
-    </v-app-bar>
-
-    <v-main>
-      <calendar 
-        :type="type" 
-        :mode="mode" 
-        :events="events" 
-        :originalEvents="originalEvents" 
-        :colors="colors"
-      />
-    </v-main>
-  </v-app>
+  <v-sheet height="1200">
+    <v-calendar
+      ref="calendar"
+      v-model="value"
+      :weekdays="weekday"
+      :type="type"
+      :events="events"
+      :event-overlap-mode="mode"
+      :locale="EN-US"
+      :event-overlap-threshold="60"
+      :interval-minutes="60"
+      :first-interval="9"
+      :interval-count="13"
+      :interval-height="100"
+      @change="getEvents"
+    ></v-calendar>
+</v-sheet>
 </template>
 
 <script>
-import Calendar from './components/Calendar.vue';
-import { originalEvents } from './originalEvents.js'
+  export default {
+    name: "Calendar",
+    props: {
+      type: String,
+      mode: String,
+      originalEvents: Array,
+      events: Array,
+      colors: Array,
+    },
 
-export default {
-  name: 'App',
-
-  components: {
-    Calendar,
-  },
     data: () => ({
-      pageTitle: "My today's agenda",
-      type: "day",
-      events: [],
-      originalEvents: originalEvents,
-      mode: "column",
-      colors: ['blue', 'indigo', 'deep-purple', 'cyan', 'green', 'orange', 'grey darken-1'],
+      // events: [],
+      weekday: [0, 1, 2, 3, 4, 5, 6],
+      value: "",
     }),
     methods: {
       convertIntegerToSeconds(minutes) {
@@ -73,6 +67,7 @@ export default {
             start: this.convertSecondstoDate(min, event.start),
             end:  this.convertSecondstoDate(min, event.start, event.duration),
             color: this.colors[this.rnd(0, this.colors.length - 1)],
+            border: "black, solid, 60px",
             timed: true,
           }),
         );
@@ -85,8 +80,7 @@ export default {
   }
 </script>
 <style>
-.center {
-  text-align: center;
-  width: 100%;
+.theme--light.v-calendar-events .v-event-timed {
+  border: solid black 1px !important;
 }
 </style>
