@@ -3,18 +3,24 @@
     <v-calendar
       ref="calendar"
       v-model="value"
+      locale="en"
+      first-interval="9"
+      interval-count="12"
       :weekdays="weekday"
       :type="type"
       :events="events"
       :event-overlap-mode="mode"
-      :locale="EN-US"
       :event-overlap-threshold="60"
       :interval-minutes="60"
-      :first-interval="9"
-      :interval-count="13"
       :interval-height="100"
       @change="getEvents"
-    ></v-calendar>
+    >
+      <template class="event" v-slot:event="{ event }">
+        <div class="event__name">
+          {{event.name}}
+        </div>
+      </template>
+    </v-calendar>
 </v-sheet>
 </template>
 
@@ -30,7 +36,6 @@
     },
 
     data: () => ({
-      // events: [],
       weekday: [0, 1, 2, 3, 4, 5, 6],
       value: "",
     }),
@@ -67,7 +72,6 @@
             start: this.convertSecondstoDate(min, event.start),
             end:  this.convertSecondstoDate(min, event.start, event.duration),
             color: this.colors[this.rnd(0, this.colors.length - 1)],
-            border: "black, solid, 60px",
             timed: true,
           }),
         );
@@ -80,7 +84,28 @@
   }
 </script>
 <style>
-.theme--light.v-calendar-events .v-event-timed {
-  border: solid black 1px !important;
-}
+  .theme--light.v-calendar-events .v-event-timed {
+     border: solid purple 5px !important;
+  }
+  .v-application {
+    border: solid white 1px !important;
+  }
+  .event {
+    border: black solid 1px;
+  }
+  .v-event-timed {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  /* .event {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  } */
+  div.event__name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
