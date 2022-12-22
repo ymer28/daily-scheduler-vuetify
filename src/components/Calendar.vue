@@ -63,7 +63,7 @@
         }
         return new Date(time);
       },
-      getEvents ({ start }) {
+      getEvents({ start }) {
         const events = [];
 
         // Set starting time to today's date at midnight
@@ -80,17 +80,21 @@
         );
         this.events = events;
       },
-      rnd (a, b) {
+      rnd(a, b) {
         return Math.floor((b - a + 1) * Math.random()) + a
       },
     },
   }
 </script>
 <style>
-  .theme--light.v-calendar-events .v-event-timed {
-     border: solid white 2px !important;
-     box-shadow:
+  div.theme--light.v-calendar-events .v-event-timed {
+    border: solid white 2px !important;
+    box-shadow:
       inset 0 0 0 1px rgb(10, 10, 10);
+    width: 100%;
+  }
+  .v-calendar .v-event-timed-container {
+    margin-right: 0;
   }
   .v-event-timed {
     display: flex;
