@@ -31,29 +31,32 @@
       type: String,
       mode: String,
       originalEvents: Array,
-      events: Array,
       colors: Array,
     },
-
     data: () => ({
       weekday: [0, 1, 2, 3, 4, 5, 6],
       value: "",
+      events: [],
     }),
     methods: {
-      convertIntegerToSeconds(minutes) {
-        return minutes * 60;
+      convertTimeToSeconds(time, isMinute) {
+        if (isMinute) {
+          return time * 60 * 1000;
+        }
+          return time * 60 * 60 * 1000;
+
       },
       convertStringToSeconds(timeString) {
         // Split it at the colons
         let a = timeString.split(':'); 
         // Minutes are worth 60 seconds. Hours are worth 60 minutes.
-        let seconds = ((+a[0]) * 60 * 60 + (+a[1]) * 60) * 1000;
+        let seconds = this.convertTimeToSeconds(a[0])+ this.convertTimeToSeconds(a[1]);
         return seconds;
       },
       convertSecondstoDate(minTime, startingTime, durationTime) {
         let time;
         if (durationTime > 0) {
-          let durationTimeSeconds = durationTime * 60 * 1000;
+          let durationTimeSeconds = this.convertTimeToSeconds(durationTime, true);
           time = minTime.getTime() + this.convertStringToSeconds(startingTime) + durationTimeSeconds;
         } else {
           time = minTime.getTime() + this.convertStringToSeconds(startingTime);
@@ -85,24 +88,15 @@
 </script>
 <style>
   .theme--light.v-calendar-events .v-event-timed {
-     border: solid purple 5px !important;
-  }
-  .v-application {
-    border: solid white 1px !important;
-  }
-  .event {
-    border: black solid 1px;
+     border: solid white 2px !important;
+     box-shadow:
+      inset 0 0 0 1px rgb(10, 10, 10);
   }
   .v-event-timed {
     display: flex;
     justify-content: center;
     align-items: center;
   }
-  /* .event {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  } */
   div.event__name {
     display: flex;
     justify-content: center;
