@@ -6,7 +6,7 @@
       dark
     >
       <div class="center">
-        <h1> {{ pageTitle }} </h1>
+        <span class="page__title"> {{ pageTitle }} </span>
       </div>
     </v-app-bar>
 
@@ -85,8 +85,21 @@ export default {
   }
 </script>
 <style>
-.center {
-  text-align: center;
-  width: 100%;
-}
+  .center {
+    text-align: center;
+    width: 100%;
+  }
+  .page__title {
+    font-size: 1.2rem;
+  }
+  @media (min-width: 20rem) {
+    .page__title {
+      font-size: 2rem;
+    }
+  }
+  @media (min-width: 40rem) {
+    .page__title {
+      font-size: 3rem;
+    }
+  }
 </style>
