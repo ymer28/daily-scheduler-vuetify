@@ -1,12 +1,10 @@
 <template>
-  <v-sheet height="1200">
     <v-calendar
       ref="calendar"
       v-model="value"
       locale="en"
       first-interval="9"
       interval-count="12"
-      :weekdays="weekday"
       :type="type"
       :events="events"
       :event-overlap-mode="mode"
@@ -21,7 +19,6 @@
         </div>
       </template>
     </v-calendar>
-</v-sheet>
 </template>
 
 <script>
@@ -34,7 +31,6 @@
       colors: Array,
     },
     data: () => ({
-      weekday: [0, 1, 2, 3, 4, 5, 6],
       value: "",
       events: [],
     }),
@@ -91,7 +87,6 @@
     border: solid white 2px !important;
     box-shadow:
       inset 0 0 0 1px rgb(10, 10, 10);
-    width: 100%;
   }
   .v-calendar .v-event-timed-container {
     margin-right: 0;
