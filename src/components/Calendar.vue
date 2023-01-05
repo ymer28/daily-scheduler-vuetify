@@ -8,9 +8,9 @@
       :type="type"
       :events="events"
       :event-overlap-mode="mode"
+      :interval-height="100"
       :event-overlap-threshold="60"
       :interval-minutes="60"
-      :interval-height="100"
       @change="getEvents"
     >
       <template class="event" v-slot:event="{ event }">
@@ -44,9 +44,9 @@
       },
       convertStringToSeconds(timeString) {
         // Split it at the colons
-        let a = timeString.split(':'); 
+        let a = timeString.split(':');
         // Minutes are worth 60 seconds. Hours are worth 60 minutes.
-        let seconds = this.convertTimeToSeconds(a[0])+ this.convertTimeToSeconds(a[1]);
+        let seconds = this.convertTimeToSeconds(a[0])+ this.convertTimeToSeconds(a[1], true);
         return seconds;
       },
       convertSecondstoDate(minTime, startingTime, durationTime) {
